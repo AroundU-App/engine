@@ -4,7 +4,7 @@ name: Build docker images
 
 on:
   push:
-    tags: ["engine-v*"]
+    tags: ["engine-v1.26.*"]
     branches: [master, main, develop]
   workflow_dispatch:
 
@@ -41,9 +41,9 @@ jobs:
             image="${{ secrets.DOCKERHUB_REPOSITORY }}"
           fi
           echo "DOCKERHUB_IMAGE=${image}" >> "$GITHUB_ENV"
-          if [[ "${GITHUB_REF}" == refs/tags/engine-v* ]]; then
-            if [[ ! "${GITHUB_REF_NAME}" =~ ^engine-v[0-9]+\.[0-9]{2}\.[0-9]+$ ]]; then
-              echo "Release tag must match engine-v<code>.<YY>.<sequence> (example: engine-v1.26.1)."
+          if [[ "${GITHUB_REF}" == refs/tags/engine-v1.26.* ]]; then
+            if [[ ! "${GITHUB_REF_NAME}" =~ ^engine-v1\.26\.[0-9]+$ ]]; then
+              echo "Release tag must match engine-v1.26.<sequence> (example: engine-v1.26.3)."
               exit 1
             fi
             echo "ENGINE_VERSION=${GITHUB_REF_NAME#engine-v}" >> "$GITHUB_ENV"
