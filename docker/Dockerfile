@@ -1,11 +1,11 @@
 # syntax=docker/dockerfile:1
-# Dockerfile to build the matrixdotorg/synapse docker images.
+# Dockerfile to build the engine docker images.
 #
 # Note that it uses features which are only available in BuildKit - see
 # https://docs.docker.com/go/buildkit/ for more information.
 #
 # To build the image, run `docker build` command from the root of the
-# synapse repository:
+# engine repository:
 #
 #    DOCKER_BUILDKIT=1 docker build -f docker/Dockerfile .
 #

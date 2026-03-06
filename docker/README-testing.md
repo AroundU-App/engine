@@ -31,14 +31,14 @@ release of Synapse, instead of your current checkout, you can skip this step. Fr
 root of the repository:
 
 ```sh
-docker build -t matrixdotorg/synapse -f docker/Dockerfile .
+docker build -t engine -f docker/Dockerfile .
 ```
 
 Next, build the workerised Synapse docker image, which is a layer over the base
 image.
 
 ```sh
-docker build -t matrixdotorg/synapse-workers -f docker/Dockerfile-workers .
+docker build -t engine-workers -f docker/Dockerfile-workers .
 ```
 
 Finally, build the multi-purpose image for Complement, which is a layer over the workers image.
@@ -82,7 +82,7 @@ docker run -d --name synapse \
     -e POSTGRES_PASSWORD=somesecret \
     -e SYNAPSE_WORKER_TYPES=synchrotron,media_repository,user_dir \
     -e SYNAPSE_WORKERS_WRITE_LOGS_TO_DISK=1 \
-    matrixdotorg/synapse-workers
+    engine-workers
 ```
 
 ...substituting `POSTGRES*` variables for those that match a postgres host you have

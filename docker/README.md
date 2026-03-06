@@ -41,7 +41,7 @@ docker run -it --rm \
     --mount type=volume,src=synapse-data,dst=/data \
     -e SYNAPSE_SERVER_NAME=my.matrix.host \
     -e SYNAPSE_REPORT_STATS=yes \
-    matrixdotorg/synapse:latest generate
+    engine:latest generate
 ```
 
 For information on picking a suitable server name, see
@@ -91,7 +91,7 @@ Once you have a valid configuration file, you can start synapse as follows:
 docker run -d --name synapse \
     --mount type=volume,src=synapse-data,dst=/data \
     -p 8008:8008 \
-    matrixdotorg/synapse:latest
+    engine:latest
 ```
 
 (assuming 8008 is the port Synapse is configured to listen on for http traffic.)
@@ -127,7 +127,7 @@ For more complex setups (e.g. for workers) you can also pass your args directly 
 docker run -d --name synapse \
     --mount type=volume,src=synapse-data,dst=/data \
     -p 8008:8008 \
-    matrixdotorg/synapse:latest run \
+    engine:latest run \
     -m synapse.app.generic_worker \
     --config-path=/data/homeserver.yaml \
     --config-path=/data/generic_worker.yaml
@@ -180,7 +180,7 @@ docker run -it --rm \
     --mount type=volume,src=synapse-data,dst=/data \
     -e SYNAPSE_SERVER_NAME=my.matrix.host \
     -e SYNAPSE_REPORT_STATS=yes \
-    matrixdotorg/synapse:latest migrate_config
+    engine:latest migrate_config
 ```
 
 This will generate the same configuration file as the legacy mode used, and
@@ -198,7 +198,7 @@ If you need to build the image from a Synapse checkout, use the following `docke
  build` command from the repo's root:
 
 ```
-DOCKER_BUILDKIT=1 docker build -t matrixdotorg/synapse -f docker/Dockerfile .
+DOCKER_BUILDKIT=1 docker build -t engine -f docker/Dockerfile .
 ```
 
 You can choose to build a different docker image by changing the value of the `-f` flag to
