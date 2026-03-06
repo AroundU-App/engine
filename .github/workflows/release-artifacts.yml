@@ -10,8 +10,8 @@ on:
   push:
     branches: ["develop", "release-*"]
 
-    # we do the full build on tags.
-    tags: ["v*"]
+    # we do the full build on release tags.
+    tags: ["engine-v*"]
   merge_group:
   workflow_dispatch:
 

@@ -1,0 +1,22 @@
+name: Actions Smoke Test
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - develop
+
+permissions:
+  contents: read
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+
+      - name: Verify runner
+        run: |
+          echo "Actions are enabled for $GITHUB_REPOSITORY"
+          echo "Ref: $GITHUB_REF"
