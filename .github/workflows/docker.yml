@@ -46,6 +46,22 @@ jobs:
               echo "Release tag must match engine-v1.26.<sequence> (example: engine-v1.26.3)."
               exit 1
             fi
+            git fetch --tags --force origin
+            current_sequence="${GITHUB_REF_NAME##*.}"
+            previous_sequence="$(git tag --list 'engine-v1.26.*' \
+              | sed -E 's/^engine-v1\.26\.([0-9]+)$/\1/' \
+              | grep -E '^[0-9]+$' \
+              | awk -v cur="${current_sequence}" '$0 != cur' \
+              | sort -n \
+              | tail -n 1)"
+            expected_sequence=1
+            if [[ -n "${previous_sequence}" ]]; then
+              expected_sequence=$((previous_sequence + 1))
+            fi
+            if [[ "${current_sequence}" != "${expected_sequence}" ]]; then
+              echo "Release tags must increment by exactly +1. Expected engine-v1.26.${expected_sequence}, got ${GITHUB_REF_NAME}."
+              exit 1
+            fi
             echo "ENGINE_VERSION=${GITHUB_REF_NAME#engine-v}" >> "$GITHUB_ENV"
           else
             echo "ENGINE_VERSION=$(awk -F'\"' '/^version = / {print $2; exit}' pyproject.toml)" >> "$GITHUB_ENV"
